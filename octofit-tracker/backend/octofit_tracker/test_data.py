@@ -1,5 +1,6 @@
 from octofit_tracker.models import User, Team, Activity, Leaderboard, Workout
 from mongoengine import connect
+from pymongo import MongoClient
 
 # Initialize MongoDB connection
 connect(
@@ -9,6 +10,10 @@ connect(
 )
 
 def populate_test_data():
+    # Clear the database
+    client = MongoClient(host="localhost", port=27017)
+    client.drop_database("octofit_db")
+
     # Create test users
     user1 = User(username="john_doe", email="john@example.com", password="password123").save()
     user2 = User(username="jane_doe", email="jane@example.com", password="password123").save()
